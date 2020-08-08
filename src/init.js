@@ -1,4 +1,5 @@
 import { initState } from "./state";
+import { compileToFunctions } from "./compiler/index";
 
 export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
@@ -10,6 +11,29 @@ export function initMixin(Vue) {
     // 初始化状态
     initState(vm);
 
-    // TODO: 初始化事件，初始化生命周期，初始化watch等等
+    // 如果当前options中有el属性，进行渲染
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el);
+    }
+  };
+
+  Vue.prototype.$mount = function (el) {
+    const vm = this;
+    const options = vm.$options;
+    el = document.querySelector(el);
+
+    if (!options.render) {
+      // 没有render，将template转化成render方法
+      let template = options.template;
+      if (!template && el) {
+        template = el.outerHTML;
+      }
+
+      // 编译原理  将tempalte编译成render方法
+      const render = compileToFunctions(template);
+      options.render = render;
+    }
+
+    // console.log(options.render);
   };
 }
