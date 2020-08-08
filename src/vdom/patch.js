@@ -15,17 +15,7 @@ function createElem(vnode) {
   if (typeof tag === "string") {
     // 创建元素，放到vnode.el上
     vnode.el = document.createElement(tag);
-    if (data) {
-      for (let attr in data) {
-        if (attr === "style") {
-          for (let prop in data.style) {
-            vnode.el.style[prop] = data.style[prop];
-          }
-        } else {
-          vnode.el.setAttribute(attr, data[attr]);
-        }
-      }
-    }
+    updateProperties(vnode);
     children.forEach((child) => {
       vnode.el.appendChild(createElem(child));
     });
@@ -35,4 +25,24 @@ function createElem(vnode) {
   }
 
   return vnode.el;
+}
+
+function updateProperties(vnode) {
+  const el = vnode.el;
+  let newProps = vnode.data || {};
+
+  for (let key in newProps) {
+    if (key === "style") {
+      // 处理style
+      for (let styleName in newProps.style) {
+        el.style[styleName] = newProps.style[styleName];
+      }
+    } else if (key === "class") {
+      // 处理 class
+      el.classList = newProps[key];
+    } else {
+      // 普通属性
+      el.setAttribute(key, newProps[key]);
+    }
+  }
 }
