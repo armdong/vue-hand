@@ -1,8 +1,6 @@
-#  vue-hand
+# vue-hand
 
 > 手写 `Vue` 2.x 源码
-
-
 
 ## 一、搭建开发环境
 
@@ -29,16 +27,16 @@ yarn add rollup @rollup/plugin-babel rollup-plugin-serve @babel/core @babel/pres
 // rollup.config.js
 
 // rollup 支持 ES6 语法
-import babel from '@rollup/plugin-babel';
-import serve from 'rollup-plugin-serve';
+import babel from "@rollup/plugin-babel";
+import serve from "rollup-plugin-serve";
 
 export default {
-  input: './src/index.js', // 入口文件
+  input: "./src/index.js", // 入口文件
   output: {
-    file: './dist/umd/vue.js', // 打包输出的路径和文件名
-    name: 'Vue', // 挂载到 window.Vue 属性上
-    format: 'umd', // 采用 umd 规范打包
-    sourcemap: true // 开启 sourcemap
+    file: "./dist/umd/vue.js", // 打包输出的路径和文件名
+    name: "Vue", // 挂载到 window.Vue 属性上
+    format: "umd", // 采用 umd 规范打包
+    sourcemap: true, // 开启 sourcemap
   },
   plugins: [
     babel({
@@ -47,9 +45,9 @@ export default {
     // 开发静态文件服务器配置
     serve({
       open: true, // 默认打开浏览器
-      openPage: '/public/index.html', // 默认打开的 html 文件
+      openPage: "/public/index.html", // 默认打开的 html 文件
       port: 3000, // 开发端口
-      contentBase: '', // 采用当前路径作为 contentBase
+      contentBase: "", // 采用当前路径作为 contentBase
     }),
   ],
 };
@@ -69,5 +67,5 @@ export default {
 
 > `-c` 的意思是使用配置文件的意思，默认回去找当前目录下的 `rollup.config.js` 文件
 >
-> ` -w ` 的意思是监听文件变化，一旦文件有了变化，重新编译 
+> `-w` 的意思是监听文件变化，一旦文件有了变化，重新编译
 

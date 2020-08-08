@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c -w"
+    "dev": "rollup -c -w"
   },
   "keywords": [],
   "author": "",
