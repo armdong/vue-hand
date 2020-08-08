@@ -16,6 +16,27 @@
     </div>
     <script src="../dist/umd/vue.js"></script>
     <script>
+      // 混合，混入
+      Vue.mixin({
+        created: function a() {
+          console.log("global created a...");
+        },
+      });
+      Vue.mixin({
+        created: function b() {
+          console.log("global created b...");
+        },
+      });
+      Vue.mixin({
+        created: [
+          function c() {
+            console.log("global created c...");
+          },
+          function d() {
+            console.log("global created d...");
+          },
+        ],
+      });
       const vm = new Vue({
         el: "#app",
         data() {
@@ -27,7 +48,14 @@
           };
         },
         // template: "<div>{{name}}</div>",
+        created() {
+          // 生命周期，就是回调函数，先订阅好，后期会触发此方法
+          console.log("instance created...");
+        },
       });
+
+      vm.name = "Michael";
+      vm._update(vm._render());
     </script>
   </body>
 </html>
