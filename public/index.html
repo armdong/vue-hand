@@ -8,8 +8,11 @@
   <body>
     <div id="app" style="color: red;">
       My name is: {{name}}, and I'm {{age}} years old now!
-      <p>Country: {{address.country}}</p>
+      <p style="color: blue;">Country: {{address.country}}</p>
       <p>City: {{address.city}}</p>
+      <div>
+        Skills: {{skills.join(', ')}}
+      </div>
     </div>
     <script src="../dist/umd/vue.js"></script>
     <script>

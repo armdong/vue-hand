@@ -1,5 +1,6 @@
 import { initState } from "./state";
 import { compileToFunctions } from "./compiler/index";
+import { mountComponent } from "./lifecycle";
 
 export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
@@ -21,6 +22,7 @@ export function initMixin(Vue) {
     const vm = this;
     const options = vm.$options;
     el = document.querySelector(el);
+    vm.$el = el;
 
     if (!options.render) {
       // 没有render，将template转化成render方法
@@ -34,6 +36,10 @@ export function initMixin(Vue) {
       options.render = render;
     }
 
-    // console.log(options.render);
+    // 需要挂载这个组件
+    mountComponent(vm, el);
   };
 }
+
+// Vue的渲染流程：
+// 初始化数据 -> 将模板进行编译 -> render函数 -> 生成虚拟节点 -> 生成真实dom -> 渲染到页面中
