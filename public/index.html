@@ -47,15 +47,15 @@
             skills: ["React", "Vue", "Webpack", "Node"],
           };
         },
-        // template: "<div>{{name}}</div>",
         created() {
           // 生命周期，就是回调函数，先订阅好，后期会触发此方法
           console.log("instance created...");
         },
       });
 
-      vm.name = "Michael";
-      vm._update(vm._render());
+      setTimeout(() => {
+        vm.name = "Michael";
+      }, 1000);
     </script>
   </body>
 </html>

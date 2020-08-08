@@ -49,3 +49,5 @@ export function initMixin(Vue) {
 
 // Vue的渲染流程：
 // 初始化数据 -> 将模板进行编译 -> render函数 -> 生成虚拟节点 -> 生成真实dom -> 渲染到页面中
+
+// 数据变化自动调用 vm._update(vm._render())
