@@ -10,7 +10,7 @@ export function mountComponent(vm, el) {
     vm._update(vm._render());
   };
   // 这个 watcher 是用于渲染的，目前没有任何功能 updateComponent
-  const watcher = new Watcher(
+  new Watcher(
     vm,
     updateComponent,
     () => {

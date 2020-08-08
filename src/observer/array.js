@@ -27,6 +27,15 @@ methods.forEach((method) => {
         break;
     }
     if (inserted) ob.observeArray(inserted); // 对新增的每一项进行观测
+
+    // 通知数组更新
+    ob.dep.notify();
+
     return results;
   };
 });
+
+// 1、我对arr取值的时候，会调用get方法，我希望让当前数组记住这个渲染watcher
+// 2、我给所有的对象类型都增加一个dep属性
+// 3、当页面对arr取值的时候，我就让数组的dep记住当前渲染watcher
+// 4、当改变数组的时候，让dep通知watcher更新页面

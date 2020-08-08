@@ -8,6 +8,9 @@ class Observer {
     // 如果有这个属性，表示该属性已经被观测过了
     def(value, "__ob__", this);
 
+    // 将dep挂在value上，value有可能是数组也有可能是对象
+    this.dep = new Dep();
+
     if (Array.isArray(value)) {
       // 当value是数组的话，将value上的数组方法进行重写
       value.__proto__ = arrayMethods; // AOP 切片编程
@@ -21,6 +24,11 @@ class Observer {
 
   walk(data) {
     for (let key in data) {
+      /**
+       * IMPORTANT
+       * 这里的data[key]有可能是一个数组
+       * 当数组作为value传入defineReactive方法
+       */
       defineReactive(data, key, data[key]);
     }
   }
@@ -31,8 +39,7 @@ class Observer {
 }
 
 function defineReactive(data, key, value) {
-  observe(value); // value 可能也是对象
-
+  const childOb = observe(value); // value 可能也是对象
   const dep = new Dep(); // 每个属性都有一个dep
 
   Object.defineProperty(data, key, {
@@ -42,6 +49,11 @@ function defineReactive(data, key, value) {
       if (Dep.target) {
         // 让这个属性记住这个watcher
         dep.depend();
+
+        if (childOb) {
+          // childOb有可能是对象也有可能是数组
+          childOb.dep.depend();
+        }
       }
       return value;
     },
@@ -58,10 +70,11 @@ function defineReactive(data, key, value) {
 
 export function observe(data) {
   if (!isObject(data)) {
-    return data;
+    return;
   }
   if (data.__ob__) {
     return data;
   }
+  // 当data为数组的时候，也会进Observer构造函数
   return new Observer(data);
 }

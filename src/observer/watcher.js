@@ -9,12 +9,24 @@ export default class Watcher {
     this.cb = cb;
     this.options = options;
     this.id = id++; // watcher唯一标识
+    this.deps = [];
+    this.depsId = new Set();
 
     if (typeof exprOrFn === "function") {
       this.getter = exprOrFn;
     }
 
     this.get(); // 默认会调用get方法
+  }
+
+  addDep(dep) {
+    const depId = dep.id;
+    // 解决多次取值相同dep去重的问题
+    if (!this.depsId.has(depId)) {
+      this.deps.push(dep);
+      this.depsId.add(depId);
+      dep.addSub(this);
+    }
   }
 
   get() {

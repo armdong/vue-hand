@@ -9,10 +9,17 @@ let id = 0;
 export default class Dep {
   constructor() {
     this.subs = [];
+    this.id = id++;
   }
 
   depend() {
-    this.subs.push(Dep.target);
+    // this.subs.push(Dep.target);
+    // 实现双向记忆，让watcher记住dep的同时，也让dep记住watcher
+    Dep.target.addDep(this);
+  }
+
+  addSub(watcher) {
+    this.subs.push(watcher);
   }
 
   notify() {
