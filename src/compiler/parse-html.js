@@ -36,7 +36,7 @@ export function parseHTML(html) {
   }
 
   function chars(text) {
-    text = text.trim();
+    text = text.trim(); // 去掉前后空格
     if (text) {
       currentParent.children.push({
         type: 3,
@@ -106,10 +106,12 @@ export function parseHTML(html) {
       }
     }
 
+    // textEnd大于0表示前面有文本
     if (textEnd > 0) {
       // 文本
       text = html.substring(0, textEnd);
     }
+
     if (text) {
       // 处理文本
       chars(text);

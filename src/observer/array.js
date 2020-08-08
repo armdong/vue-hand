@@ -1,6 +1,7 @@
 const arrayProto = Array.prototype;
 export let arrayMethods = Object.create(arrayProto);
 
+// 重写的方法有：push, pop, shift, unshift, sort, reverse, splice, 这7个方法会影响原数组的值
 const methods = [
   "push",
   "pop",

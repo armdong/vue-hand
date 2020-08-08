@@ -7,9 +7,9 @@ function Vue(options) {
   this._init(options);
 }
 
-// 原型扩展 -> 初始化
-initMixin(Vue);
-lifecycleMixin(Vue);
-renderMixin(Vue);
+// 插件开发
+initMixin(Vue); // init 初始化
+lifecycleMixin(Vue); // _update
+renderMixin(Vue); // _render
 
 export default Vue;

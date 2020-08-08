@@ -9,9 +9,7 @@ class Observer {
 
     if (Array.isArray(value)) {
       // 当value是数组的话，将value上的数组方法进行重写
-      // 重写的方法有：push, pop, shift, unshift, sort, reverse, splice
-      // 这7个方法会影响原数组的值
-      value.__proto__ = arrayMethods;
+      value.__proto__ = arrayMethods; // AOP 切片编程
 
       // 检测数组中的每一项
       this.observeArray(value);

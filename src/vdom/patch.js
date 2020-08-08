@@ -5,7 +5,6 @@ export function path(oldVnode, vnode) {
   const parentElm = oldVnode.parentNode;
   parentElm.insertBefore(el, oldVnode.nextSibling);
   parentElm.removeChild(oldVnode);
-
   return el;
 }
 
